@@ -9,26 +9,26 @@ $events = json_decode($content, true);
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
-		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'Text') {
-			// Get text sent
-			$text = $event['message']['Text'];
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			
+		if(‘message’ == $event->type){
+// debug
+//file_put_contents(“message.json”, json_encode($event));
+$text = $event->message->text;
 
-			// Build message to reply back
-			$messages = [
-				'type' => 'Hello',
-				'Hello bos' => $text
-			];
+if (preg_match(“/สวัสดี/”, $text)) {
+$text = “มีอะไรให้จ่าวิสรับใช้ครับ”;
+}
 
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-			];
+if (preg_match(“/เปิดทีวี/”, $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
+
+$text = “เปิดทีวีให้แล้วคร้าบบบบ”;
+}
+if (preg_match(“/ปิดทีวี/”, $text) and !preg_match(“/เปิดทีวี/”, $text)) {
+
+$text = “จ่าปิดทีวีให้แล้วนะครับ!!”;
+}
+$response = $bot->replyText($event->replyToken, $text); // ส่งคำ reply กลับไปยัง line application
+
+}
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
