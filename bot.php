@@ -10,9 +10,9 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'สวัสดี') {
+		if ($event['type'] == 'message' && $event['message']['type'] == 'Hello') {
 			// Get text sent
-			$text = $event['message']['มีอะไรให้รับใช้ขอรับ'];
+			$text = $event['message']['Hello bos'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			if ($event['type'] == 'message' && $event['message']['type'] == 'ปิดไฟ') {
@@ -28,8 +28,8 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => $text
+				'type' => 'Hello',
+				'Hello bos' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
