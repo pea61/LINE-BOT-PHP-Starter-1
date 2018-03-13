@@ -4,6 +4,14 @@
 	 
 	$content = file_get_contents('php://input');
 	$arrJson = json_decode($content, true);
+
+// Validate parsed JSON data
+if (!is_null($events['ESP'])) {
+	
+	send_LINE($events['ESP']);
+		
+	echo "OK";
+	}
 	 
 	$strUrl = "https://api.line.me/v2/bot/message/reply";
 	 
@@ -49,6 +57,13 @@
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	$result = curl_exec($ch);
 	curl_close ($ch);
+
+
+
+// Build message to reply back
+			$Topic = "NodeMCU1" ;
+			getMqttfromlineMsg($Topic,$text);
+			   
 	 
 	?>
 
