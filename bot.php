@@ -5,13 +5,7 @@
 	$content = file_get_contents('php://input');
 	$arrJson = json_decode($content, true);
 
-// Validate parsed JSON data
-if (!is_null($events['ESP'])) {
-	
-	send_LINE($events['ESP']);
-		
-	echo "OK";
-	}
+
 	 
 	$strUrl = "https://api.line.me/v2/bot/message/reply";
 	 
