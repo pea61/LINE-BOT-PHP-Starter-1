@@ -54,11 +54,8 @@
 
 
 
-// Build message to reply back
-			$Topic = "NodeMCU1" ;
-			getMqttfromlineMsg($Topic,$text);
 			   
 	 
-	?>
+	/?>
 
 
