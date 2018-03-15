@@ -23,13 +23,11 @@
 	  $arrPostData['messages'][0]['text'] = "สวัสดีครับเจ้านาย มีอะไรให้รับใช้ครับ";
 	}else if($arrJson['events'][0]['message']['text'] == "เปิดไฟ"){
 	  $arrPostData = array();
-	 
 	  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
 	  $arrPostData['messages'][0]['type'] = "text";
 	  $arrPostData['messages'][0]['text'] = "เปิดไฟแล้วครับ";
 	}else if($arrJson['events'][0]['message']['text'] == "ปิดไฟ"){
 	  $arrPostData = array();
-	
 	  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
 	  $arrPostData['messages'][0]['type'] = "text";
 	  $arrPostData['messages'][0]['text'] = "ปิดไฟแล้วครับ";
@@ -53,4 +51,3 @@
 	curl_close ($ch);
 	 
 	?>
-
