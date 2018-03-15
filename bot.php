@@ -24,14 +24,14 @@ $text = “มีอะไรให้จ่าวิสรับใช้คร
 }
 if (preg_match(“/เปิดไฟ/”, $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
 if ($mqtt->connect()) {
-$mqtt->publish(“/ESP/REMOTE”,”GET”); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
+$mqtt->publish(“/ESP/LED”,”GET”); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
 $mqtt->close();
 }
 $text = “เปิดไฟให้แล้วคร้าบบบบ”;
 }
-if (preg_match(“/ปิดทีวี/”, $text) and !preg_match(“/เปิดทีวี/”, $text)) {
+if (preg_match(“/ปิดไฟ/”, $text) and !preg_match(“/เปิดไฟ/”, $text)) {
 if ($mqtt->connect()) {
-$mqtt->publish(“/ESP/REMOTE”,”GET”);
+$mqtt->publish(“/ESP/LED”,”GET”);
 $mqtt->close();
 }
 $text = “ปิดไฟให้แล้วนะครับ!!”;
