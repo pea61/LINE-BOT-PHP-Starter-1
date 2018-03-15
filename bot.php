@@ -1,13 +1,7 @@
 <?php
-	  require("vendor/autoload.php");
-use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use \LINE\LINEBot;
-require("phpMQTT.php");
-$mqtt = new phpMQTT(“m12.cloudmqtt.com”,10184, “phpMQTT Pub Example”)
+	 
 	$strAccessToken = "IrN10smd9lGZGp0JtOOoBJpAvSvDPFVNnDbTdxVbnU2Xv9YNaABrfKI2LxXxRH59XxerqJx3otWj0OqohFtMLiwSJy6fEEYarDN9KVKol7CqHo1GzqPST1DJI4hvg04yIDQiNwa2M1UD8K4SRn4XawdB04t89/1O/w1cDnyilFU=";
-	$httpClient = new CurlHTTPClient($token);
-$bot = new LINEBot($httpClient, [‘channelSecret’ => $token]); 
-	 //webhook
+	 
 	$content = file_get_contents('php://input');
 	$arrJson = json_decode($content, true);
 	 
@@ -29,14 +23,11 @@ $bot = new LINEBot($httpClient, [‘channelSecret’ => $token]);
 	  $arrPostData['messages'][0]['text'] = "สวัสดีครับเจ้านาย มีอะไรให้รับใช้ครับ";
 	}else if($arrJson['events'][0]['message']['text'] == "เปิดไฟ"){
 	  $arrPostData = array();
-	
 	  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
 	  $arrPostData['messages'][0]['type'] = "text";
-	
 	  $arrPostData['messages'][0]['text'] = "เปิดไฟแล้วครับ";
 	}else if($arrJson['events'][0]['message']['text'] == "ปิดไฟ"){
 	  $arrPostData = array();
-	
 	  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
 	  $arrPostData['messages'][0]['type'] = "text";
 	  $arrPostData['messages'][0]['text'] = "ปิดไฟแล้วครับ";
