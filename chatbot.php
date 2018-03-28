@@ -1,13 +1,21 @@
 [code] <?php
-require(“vendor/autoload.php”);
+//require(“vendor/autoload.php”);
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 
 require(“phpMQTT.php”);
 
-$mqtt = new phpMQTT(“m12.cloudmqtt.com”,10184); //เปลี่ยน www.yourmqttserver.com ไปที่ mqtt server ที่เราสมัครไว้นะครับ
+# username of anto.io account
+user = "ZEEZA"
+# key of permission, generated on control panel anto.io
+key = "TLmlVU2Dk1oQIyt0ffFFwJcub5Yhr5ZCX0QgSQ2p"
+# your default thing.
+thing = "myyChannel1"
+
+anto = antolib.Anto(user, key, thing)
 
 $token = “IrN10smd9lGZGp0JtOOoBJpAvSvDPFVNnDbTdxVbnU2Xv9YNaABrfKI2LxXxRH59XxerqJx3otWj0OqohFtMLiwSJy6fEEYarDN9KVKol7CqHo1GzqPST1DJI4hvg04yIDQiNwa2M1UD8K4SRn4XawdB04t89/1O/w1cDnyilFU=”; //นำ token ที่มาจาก line developer account ของเรามาใส่ครับ
+
 
 $httpClient = new CurlHTTPClient($token);
 $bot = new LINEBot($httpClient, [‘fb78ff3825406ec91a010e7a55e0af6c’ => $token]);
@@ -21,27 +29,18 @@ if(‘message’ == $event->type){
 //file_put_contents(“message.json”, json_encode($event));
 $text = $event->message->text;
 
-if (preg_match(“/สวัสดี/”, $text)) {
-$text = “มีอะไรให้รับใช้ครับ”;
-}
-
-if (preg_match(“/เปิดไฟ/”, $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
-if ($mqtt->connect()) {
-$mqtt->publish(“/ESP/LED”,”GET”); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
-$mqtt->close();
-}
-$text = “เปิดไฟให้แล้วคร้าบบบบ”;
-}
-if (preg_match(“/ปิดไฟ/”, $text) and !preg_match(“/เปิดไฟ/”, $text)) {
-if ($mqtt->connect()) {
-$mqtt->publish(“/ESP/LED”,”GET”);
-$mqtt->close();
-}
-$text = “จ่าปิดไฟให้แล้วนะครับ!!”;
-}
-$response = $bot->replyText($event->replyToken, $text); // ส่งคำ reply กลับไปยัง line application
-
-}
+if(message == 'channel1 on'):
+        anto.pub('myChannel1', 1)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="Turn On channel1"))
+    elif(message == 'channel1 off'):
+        anto.pub('myChannel1', 0)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="Turn Off channel1"))
+   
+            
 }
 
 ?>
